@@ -1,13 +1,18 @@
 const path = require("path");
+const HDWalletProvider = require("truffle-hdwallet-provider");
+const dotenv = require('dotenv');
 
-var HDWalletProvider = require("truffle-hdwallet-provider");
-var mnemonic =
-  "trophy pear mail office shield gym merry deer toilet west interest casual cattle talent kingdom";
-var infuraRinkebyUrl =
-  "https://rinkeby.infura.io/v3/3baae2e6c67c435689a674e3634cc8b2";
-var provider = new HDWalletProvider(mnemonic, infuraRinkebyUrl, 0, 1, false);
+const dotenvResult = dotenv.config();
 
-console.log("Test ", provider.address);
+if (dotenvResult.error) {
+  throw dotenvResult.error;
+}
+
+const {
+  MNEMONIC, INFURA_PROVIDER_URL, INFURA_API_KEY
+} = process.env;
+
+//var provider = new HDWalletProvider(mnemonic, infuraRinkebyUrl, 0, 1, false);
 
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
@@ -26,7 +31,7 @@ module.exports = {
       network_id: "*" // Match any network id
     },
     rinkeby: {
-      provider: provider,
+      provider: new HDWalletProvider(MNEMONIC,`${INFURA_PROVIDER_URL}/${INFURA_API_KEY}`, 0, 10, false ),
       network_id: 4, // eslint-disable-line camelcase
       gasPrice: "7000000000",
       gas: 6000000
