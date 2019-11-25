@@ -12,7 +12,6 @@ const {
   MNEMONIC, INFURA_PROVIDER_URL, INFURA_API_KEY
 } = process.env;
 
-//var provider = new HDWalletProvider(mnemonic, infuraRinkebyUrl, 0, 1, false);
 
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>

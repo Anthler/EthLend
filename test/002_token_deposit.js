@@ -1,4 +1,5 @@
 var Token = artifacts.require("DestructableToken");
+const { expectRevert } = require('@openzeppelin/test-helpers');
 
 contract("Token deposits", async function (accounts) {
   var token;
@@ -7,7 +8,7 @@ contract("Token deposits", async function (accounts) {
     var testerBalance = await web3.eth.getBalance(accounts[0]);
   });
 
-  describe('deposit', async function () {
+  describe('deposit()', async function () {
 
     it("should not fail on not zero deposit", async function () {
       await token.deposit({
@@ -15,18 +16,12 @@ contract("Token deposits", async function (accounts) {
         value: web3.utils.toWei("1", "ether")
       })
     });
+
     it("should fail on zero deposits", async function () {
 
-      var promise = token.deposit({
-        from: accounts[0],
-        value: web3.utils.toWei("0", "ether")
-      })
-      try {
-        await promise;
-        assert.isTrue(false);
-      } catch (ex) {
-        assert.isTrue(ex.toString().indexOf("Reason given: You must deposit some eth") != -1, "some other exception");
-      }
+      await expectRevert.unspecified(token.deposit({
+        from: accounts[0],value: web3.utils.toWei("0", "ether")
+      }))
     });
 
     it("should mint amount of tokens equal to amount of eth if no earnings", async function () {
