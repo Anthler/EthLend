@@ -16,7 +16,7 @@ const {
 module.exports = {
   // See <http://truffleframework.com/docs/advanced/configuration>
   // to customize your Truffle configuration!
-  contracts_build_directory: path.join(__dirname, "vapp/src/contracts"),
+  //contracts_build_directory: path.join(__dirname, "vapp/src/contracts"),
   networks: {
     development: {
       host: "127.0.0.1",

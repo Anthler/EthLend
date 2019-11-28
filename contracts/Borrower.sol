@@ -12,7 +12,7 @@ contract Borrower{
         require(tokenAddress == address(0),"can set token address only once");
         tokenAddress = _tok;
     }
-    function getFee(uint amount) public view returns(uint){
+    function getFee(uint amount) public pure returns(uint){
         return amount/100000;
     }
     function borrow(uint amount) external{
